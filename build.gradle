@@ -9,5 +9,5 @@ description = 'A light-weight plugin that adds skills with all sorts of fun game
 compileJava.options.encoding = 'UTF-8'
 
 dependencies {
-    compile 'org.spongepowered:spongeapi:7.0.0'
+    compile 'org.spongepowered:spongeapi:7.1.0'
 }

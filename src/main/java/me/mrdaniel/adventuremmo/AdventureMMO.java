@@ -22,6 +22,7 @@ import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
@@ -73,8 +74,8 @@ import me.mrdaniel.adventuremmo.service.AdventureMMOService;
 import me.mrdaniel.adventuremmo.utils.ChoiceMaps;
 import me.mrdaniel.adventuremmo.utils.ItemUtils;
 
-@Plugin(id = "adventuremmo", name = "AdventureMMO", version = "2.1.2", description = "A light-weight plugin that adds skills with all sorts of fun game mechanics to your server.", authors = {
-		"Daniel12321", "rojo8399" })
+@Plugin(id = "adventuremmo", name = "AdventureMMO", version = "2.1.2", description = "A lightweight plugin that adds skills with all sorts of fun game mechanics to your server.", authors = {
+		"Daniel12321", "rojo8399", "The_Fireplace" })
 public class AdventureMMO {
 
 	private final Game game;
@@ -245,7 +246,7 @@ public class AdventureMMO {
 		this.onStopping(null);
 
 		this.game.getEventManager().unregisterPluginListeners(this);
-		this.game.getScheduler().getScheduledTasks(this).forEach(task -> task.cancel());
+		this.game.getScheduler().getScheduledTasks(this).forEach(Task::cancel);
 		this.game.getCommandManager().getOwnedBy(this).forEach(this.game.getCommandManager()::removeMapping);
 
 		this.onInit(null);
