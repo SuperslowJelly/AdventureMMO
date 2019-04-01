@@ -1,10 +1,7 @@
 package me.mrdaniel.adventuremmo.commands;
 
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.command.CommandException;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.entity.living.player.Player;
@@ -13,8 +10,8 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
+import javax.annotation.Nonnull;
+import java.util.Optional;
 
 public class CommandItemSet extends PlayerCommand {
 
@@ -25,7 +22,7 @@ public class CommandItemSet extends PlayerCommand {
 	}
 
 	@Override
-	public void execute(final Player p, final CommandContext args) throws CommandException {
+	public void execute(final Player p, final CommandContext args) {
 		Optional<ItemStack> hand = p.getItemInHand(HandTypes.MAIN_HAND);
 		if (!hand.isPresent()) {
 			p.sendMessage(Text.of(TextColors.RED, "You must be holding an item to use this command"));

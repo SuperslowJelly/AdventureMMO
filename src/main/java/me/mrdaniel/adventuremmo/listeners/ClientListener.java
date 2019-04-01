@@ -1,13 +1,12 @@
 package me.mrdaniel.adventuremmo.listeners;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.network.ClientConnectionEvent;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.MMOObject;
 import me.mrdaniel.adventuremmo.utils.ItemUtils;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.network.ClientConnectionEvent;
+
+import javax.annotation.Nonnull;
 
 public class ClientListener extends MMOObject {
 

@@ -1,17 +1,7 @@
 package me.mrdaniel.adventuremmo.managers;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.action.TextActions;
-import org.spongepowered.api.text.channel.MessageReceiver;
-import org.spongepowered.api.text.format.TextColors;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.Ability;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
@@ -20,6 +10,14 @@ import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
 import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
 import me.mrdaniel.adventuremmo.utils.MathUtils;
 import me.mrdaniel.adventuremmo.utils.TextUtils;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.action.TextActions;
+import org.spongepowered.api.text.channel.MessageReceiver;
+import org.spongepowered.api.text.format.TextColors;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class MenuManager {
 
@@ -200,14 +198,14 @@ public class MenuManager {
 
 	@Nonnull
 	private Text getEmptyLine() {
-		String str = "";
+		StringBuilder str = new StringBuilder();
 		for (int i = 0; i < this.i; i++) {
-			str += " ";
+			str.append(" ");
 		}
 		if (this.i++ > 8) {
 			this.i = 0;
 		}
-		return Text.of(str);
+		return Text.of(str.toString());
 	}
 
 	@Nonnull

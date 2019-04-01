@@ -1,9 +1,8 @@
 package me.mrdaniel.adventuremmo.listeners;
 
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.MMOObject;
+import me.mrdaniel.adventuremmo.data.manipulators.ImmutableSuperToolData;
 import org.spongepowered.api.block.tileentity.Piston;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -16,11 +15,11 @@ import org.spongepowered.api.event.item.inventory.ClickInventoryEvent;
 import org.spongepowered.api.event.item.inventory.DropItemEvent;
 import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 import org.spongepowered.api.item.inventory.transaction.SlotTransaction;
+import org.spongepowered.api.util.Identifiable;
 import org.spongepowered.api.util.Tristate;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.MMOObject;
-import me.mrdaniel.adventuremmo.data.manipulators.ImmutableSuperToolData;
+import javax.annotation.Nonnull;
+import java.util.UUID;
 
 public class WorldListener extends MMOObject {
 
@@ -47,7 +46,7 @@ public class WorldListener extends MMOObject {
 			e.getTransactions()
 					.forEach(trans -> trans.getOriginal().getLocation()
 							.ifPresent(loc -> loc.getExtent().setCreator(loc.getBlockPosition(),
-									e.getCause().first(Player.class).map(p -> p.getUniqueId()).orElse(this.uuid))));
+									e.getCause().first(Player.class).map(Identifiable::getUniqueId).orElse(this.uuid))));
 		}
 	}
 

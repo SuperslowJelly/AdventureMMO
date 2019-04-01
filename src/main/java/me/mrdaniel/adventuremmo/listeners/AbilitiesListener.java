@@ -1,10 +1,22 @@
 package me.mrdaniel.adventuremmo.listeners;
 
-import java.util.Map;
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
+import com.flowpowered.math.vector.Vector3d;
+import com.google.common.collect.Maps;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.MMOObject;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.Ability;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.ActiveAbility;
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
+import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
+import me.mrdaniel.adventuremmo.event.AbilityEvent;
+import me.mrdaniel.adventuremmo.event.BreakBlockEvent;
+import me.mrdaniel.adventuremmo.event.LevelUpEvent;
+import me.mrdaniel.adventuremmo.event.PlayerDamageEntityEvent;
+import me.mrdaniel.adventuremmo.io.Config;
+import me.mrdaniel.adventuremmo.io.items.ToolData;
+import me.mrdaniel.adventuremmo.utils.MathUtils;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
@@ -24,24 +36,9 @@ import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Tristate;
 
-import com.flowpowered.math.vector.Vector3d;
-import com.google.common.collect.Maps;
-
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.MMOObject;
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.Ability;
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.ActiveAbility;
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
-import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
-import me.mrdaniel.adventuremmo.event.AbilityEvent;
-import me.mrdaniel.adventuremmo.event.BreakBlockEvent;
-import me.mrdaniel.adventuremmo.event.LevelUpEvent;
-import me.mrdaniel.adventuremmo.event.PlayerDamageEntityEvent;
-import me.mrdaniel.adventuremmo.io.Config;
-import me.mrdaniel.adventuremmo.io.items.ToolData;
-import me.mrdaniel.adventuremmo.utils.MathUtils;
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.Optional;
 
 public class AbilitiesListener extends MMOObject {
 
@@ -62,15 +59,13 @@ public class AbilitiesListener extends MMOObject {
 		Optional<ToolData> handdata = super.getMMO().getItemDatabase()
 				.getData(p.getItemInHand(HandTypes.MAIN_HAND).orElse(null));
 
-		e.getTransactions().forEach(trans -> {
-			super.getMMO().getItemDatabase().getData(trans.getOriginal().getState().getType()).ifPresent(blockdata -> {
-				if (!trans.getOriginal().getCreator().isPresent())
-					super.getGame().getEventManager()
-							.post(new BreakBlockEvent(super.getMMO(), p,
-									trans.getOriginal().getLocation().orElse(p.getLocation()), blockdata,
-									handdata.map(data -> data.getType()).orElse(null)));
-			});
-		});
+		e.getTransactions().forEach(trans -> super.getMMO().getItemDatabase().getData(trans.getOriginal().getState().getType()).ifPresent(blockdata -> {
+			if (!trans.getOriginal().getCreator().isPresent())
+				super.getGame().getEventManager()
+						.post(new BreakBlockEvent(super.getMMO(), p,
+								trans.getOriginal().getLocation().orElse(p.getLocation()), blockdata,
+								handdata.map(ToolData::getType).orElse(null)));
+		}));
 	}
 
 	@Listener(order = Order.LATE)

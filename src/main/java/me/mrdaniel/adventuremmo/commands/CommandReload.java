@@ -1,15 +1,13 @@
 package me.mrdaniel.adventuremmo.commands;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.command.CommandException;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.MMOObject;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.MMOObject;
+import javax.annotation.Nonnull;
 
 public class CommandReload extends MMOObject implements CommandExecutor {
 
@@ -18,7 +16,7 @@ public class CommandReload extends MMOObject implements CommandExecutor {
 	}
 
 	@Override
-	public CommandResult execute(final CommandSource src, final CommandContext args) throws CommandException {
+	public CommandResult execute(final CommandSource src, final CommandContext args) {
 		super.getMMO().onReload(null);
 		super.getMMO().getMessages().sendReload(src);
 		return CommandResult.success();

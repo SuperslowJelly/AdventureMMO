@@ -1,23 +1,6 @@
 package me.mrdaniel.adventuremmo.io;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.spongepowered.api.block.BlockType;
-import org.spongepowered.api.item.ItemType;
-import org.spongepowered.api.item.inventory.ItemStack;
-import org.spongepowered.api.util.Tuple;
-
 import com.google.common.collect.Maps;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
@@ -28,6 +11,20 @@ import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
 import me.mrdaniel.adventuremmo.io.playerdata.PlayerDatabase;
 import me.mrdaniel.adventuremmo.io.playerdata.SQLPlayerData;
 import me.mrdaniel.adventuremmo.io.tops.TopDatabase;
+import org.spongepowered.api.block.BlockType;
+import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.util.Tuple;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SQLDatabase implements PlayerDatabase, ItemDatabase, TopDatabase {
 
@@ -42,21 +39,19 @@ public class SQLDatabase implements PlayerDatabase, ItemDatabase, TopDatabase {
 			}
 		}
 
-		this.players = new ConcurrentHashMap<UUID, SQLPlayerData>();
+		this.players = new ConcurrentHashMap<>();
 	}
 
 	// TopDatabase
 	@Override
 	public void update(@Nonnull final String player, @Nullable final SkillType skill, final int level) {
-		;
 	}
 
 	@Override
 	@Nonnull
 	public Map<Integer, Tuple<String, Integer>> getTop(@Nullable final SkillType skill) {
-		Map<Integer, Tuple<String, Integer>> top = Maps.newHashMap();
 
-		return top;
+		return Maps.newHashMap();
 	}
 
 	// ItemDatabase
@@ -86,7 +81,7 @@ public class SQLDatabase implements PlayerDatabase, ItemDatabase, TopDatabase {
 
 	@Override
 	public synchronized void unloadAll() {
-		this.players.values().forEach(data -> data.save());
+		this.players.values().forEach(SQLPlayerData::save);
 		this.players.clear();
 	}
 
@@ -104,21 +99,17 @@ public class SQLDatabase implements PlayerDatabase, ItemDatabase, TopDatabase {
 
 	@Override
 	public void set(@Nonnull final ItemType item, @Nonnull final ToolType one) {
-		;
 	}
 
 	@Override
 	public void set(@Nonnull final BlockType block, @Nonnull final SkillType skill, final int exp) {
-		;
 	}
 
 	@Override
 	public void remove(@Nonnull final ItemType item) {
-		;
 	}
 
 	@Override
 	public void remove(@Nonnull final BlockType block) {
-		;
 	}
 }

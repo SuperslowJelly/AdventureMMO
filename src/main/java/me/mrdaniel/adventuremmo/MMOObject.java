@@ -1,11 +1,11 @@
 package me.mrdaniel.adventuremmo;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Server;
 import org.spongepowered.api.plugin.PluginContainer;
+
+import javax.annotation.Nonnull;
 
 public abstract class MMOObject {
 

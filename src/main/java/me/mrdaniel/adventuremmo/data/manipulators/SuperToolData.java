@@ -1,10 +1,9 @@
 package me.mrdaniel.adventuremmo.data.manipulators;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import me.mrdaniel.adventuremmo.data.MMOKeys;
+import me.mrdaniel.adventuremmo.utils.TextUtils;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataHolder;
 import org.spongepowered.api.data.DataView;
@@ -16,11 +15,9 @@ import org.spongepowered.api.data.value.mutable.Value;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-
-import me.mrdaniel.adventuremmo.data.MMOKeys;
-import me.mrdaniel.adventuremmo.utils.TextUtils;
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Optional;
 
 public class SuperToolData extends AbstractData<SuperToolData, ImmutableSuperToolData> {
 

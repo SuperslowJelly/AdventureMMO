@@ -1,12 +1,11 @@
 package me.mrdaniel.adventuremmo.catalogtypes.abilities;
 
-import javax.annotation.Nonnull;
-
+import ninja.leaping.configurate.ConfigurationNode;
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
-import ninja.leaping.configurate.ConfigurationNode;
+import javax.annotation.Nonnull;
 
 @CatalogedBy(Abilities.class)
 public abstract class Ability implements CatalogType {
@@ -57,8 +56,8 @@ public abstract class Ability implements CatalogType {
 		return Math.min(this.getInitial() + (this.getIncrement() * level), this.getCap());
 	}
 
-	public boolean isEnabled() {
-		return this.enabled;
+	public boolean isDisabled() {
+		return !this.enabled;
 	}
 
 	public abstract Text getValueLine(final int level);

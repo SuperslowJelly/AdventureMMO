@@ -1,23 +1,12 @@
 package me.mrdaniel.adventuremmo.catalogtypes.skills;
 
-import java.util.List;
-import java.util.Optional;
+import com.google.common.collect.Lists;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
+import me.mrdaniel.adventuremmo.listeners.skills.*;
 
 import javax.annotation.Nonnull;
-
-import com.google.common.collect.Lists;
-
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
-import me.mrdaniel.adventuremmo.listeners.skills.AcrobaticsListener;
-import me.mrdaniel.adventuremmo.listeners.skills.ArcheryListener;
-import me.mrdaniel.adventuremmo.listeners.skills.AxesListener;
-import me.mrdaniel.adventuremmo.listeners.skills.ExcavationListener;
-import me.mrdaniel.adventuremmo.listeners.skills.FarmingListener;
-import me.mrdaniel.adventuremmo.listeners.skills.FishingListener;
-import me.mrdaniel.adventuremmo.listeners.skills.MiningListener;
-import me.mrdaniel.adventuremmo.listeners.skills.SwordsListener;
-import me.mrdaniel.adventuremmo.listeners.skills.UnarmedListener;
-import me.mrdaniel.adventuremmo.listeners.skills.WoodcuttingListener;
+import java.util.List;
+import java.util.Optional;
 
 public final class SkillTypes {
 
@@ -29,10 +18,10 @@ public final class SkillTypes {
 	public static final SkillType WOODCUTTING = new SkillType("Woodcutting", "woodcutting",
 			(mmo, config) -> new WoodcuttingListener(mmo), Abilities.TREE_FELLER, Abilities.DOUBLE_DROP);
 	public static final SkillType EXCAVATION = new SkillType("Excavation", "excavation",
-			(mmo, config) -> new ExcavationListener(mmo, config), Abilities.GIGA_DRILL, Abilities.TREASURE_HUNT,
+            ExcavationListener::new, Abilities.GIGA_DRILL, Abilities.TREASURE_HUNT,
 			Abilities.DOUBLE_DROP);
 	public static final SkillType FISHING = new SkillType("Fishing", "fishing",
-			(mmo, config) -> new FishingListener(mmo, config), Abilities.FISH_FRENZY, Abilities.WATER_TREASURE,
+            FishingListener::new, Abilities.FISH_FRENZY, Abilities.WATER_TREASURE,
 			Abilities.DOUBLE_DROP);
 	public static final SkillType FARMING = new SkillType("Farming", "farming",
 			(mmo, config) -> new FarmingListener(mmo), Abilities.GREEN_THUMBS, Abilities.DOUBLE_DROP);

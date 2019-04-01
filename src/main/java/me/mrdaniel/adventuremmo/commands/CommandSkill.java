@@ -1,13 +1,11 @@
 package me.mrdaniel.adventuremmo.commands;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.command.CommandException;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.entity.living.player.Player;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
+import javax.annotation.Nonnull;
 
 public class CommandSkill extends PlayerCommand {
 
@@ -20,7 +18,7 @@ public class CommandSkill extends PlayerCommand {
 	}
 
 	@Override
-	public void execute(final Player p, final CommandContext args) throws CommandException {
+	public void execute(final Player p, final CommandContext args) {
 		this.mmo.getMenus().sendSkillInfo(p, this.skill);
 	}
 }

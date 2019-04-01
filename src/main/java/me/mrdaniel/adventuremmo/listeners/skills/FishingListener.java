@@ -1,11 +1,15 @@
 package me.mrdaniel.adventuremmo.listeners.skills;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
+import me.mrdaniel.adventuremmo.io.Config;
+import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
+import me.mrdaniel.adventuremmo.utils.ItemInfo;
+import me.mrdaniel.adventuremmo.utils.ItemUtils;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
@@ -18,17 +22,10 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.util.Tristate;
 import org.spongepowered.api.util.Tuple;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
-import me.mrdaniel.adventuremmo.io.Config;
-import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
-import me.mrdaniel.adventuremmo.utils.ItemInfo;
-import me.mrdaniel.adventuremmo.utils.ItemUtils;
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class FishingListener extends ActiveAbilityListener {
 
@@ -51,13 +48,13 @@ public class FishingListener extends ActiveAbilityListener {
 		config.getNode("abilities", "watertreasure", "loot").getChildrenMap().forEach((typeO, node) -> {
 			Optional<ItemType> type = mmo.getGame().getRegistry().getType(ItemType.class, (String) typeO);
 			if (type.isPresent()) {
-				this.drops.put(node.getNode("lvl").getInt(0), new Tuple<Double, ItemInfo>(
-						node.getNode("chance").getDouble(1),
-						new ItemInfo(type.get(), node.getNode("min_amount").getInt(1),
-								node.getNode("max_amount").getInt(1), node.getNode("min_damage").getInt(0),
-								node.getNode("max_damage").getInt(0), node.getNode("enchanted").getBoolean(false))));
+				this.drops.put(node.getNode("lvl").getInt(0), new Tuple<>(
+                        node.getNode("chance").getDouble(1),
+                        new ItemInfo(type.get(), node.getNode("min_amount").getInt(1),
+                                node.getNode("max_amount").getInt(1), node.getNode("min_damage").getInt(0),
+                                node.getNode("max_damage").getInt(0), node.getNode("enchanted").getBoolean(false))));
 			} else {
-				mmo.getLogger().error("Failed to find itemtype for: {}", (String) typeO);
+				mmo.getLogger().error("Failed to find itemtype for: {}", typeO);
 			}
 		});
 
@@ -96,6 +93,6 @@ public class FishingListener extends ActiveAbilityListener {
 				return this.drops.get(l).getSecond().create(super.getMMO());
 			}
 		}
-		return ItemUtils.build(ItemTypes.DYE, (int) Math.random() * 11 + 10, 4);
+		return ItemUtils.build(ItemTypes.DYE, (int) (Math.random() * 11) + 10, 4);
 	}
 }

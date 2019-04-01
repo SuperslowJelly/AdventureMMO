@@ -1,11 +1,10 @@
 package me.mrdaniel.adventuremmo.io.items;
 
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
+
+import javax.annotation.Nonnull;
+import java.util.Optional;
 
 public class ToolData {
 

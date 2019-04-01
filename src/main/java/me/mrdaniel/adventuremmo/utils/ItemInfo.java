@@ -1,11 +1,10 @@
 package me.mrdaniel.adventuremmo.utils;
 
-import javax.annotation.Nonnull;
-
+import me.mrdaniel.adventuremmo.AdventureMMO;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
+import javax.annotation.Nonnull;
 
 public class ItemInfo {
 

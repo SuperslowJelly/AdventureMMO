@@ -1,9 +1,9 @@
 package me.mrdaniel.adventuremmo.catalogtypes.abilities;
 
-import javax.annotation.Nonnull;
-
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
+
+import javax.annotation.Nonnull;
 
 public class ActiveAbility extends Ability {
 

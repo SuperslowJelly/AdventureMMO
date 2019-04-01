@@ -1,11 +1,10 @@
 package me.mrdaniel.adventuremmo.catalogtypes.tools;
 
-import java.util.List;
-import java.util.Optional;
+import com.google.common.collect.Lists;
 
 import javax.annotation.Nonnull;
-
-import com.google.common.collect.Lists;
+import java.util.List;
+import java.util.Optional;
 
 public final class ToolTypes {
 

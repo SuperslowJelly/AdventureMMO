@@ -1,17 +1,6 @@
 package me.mrdaniel.adventuremmo.io.tops;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.spongepowered.api.util.Tuple;
-
 import com.google.common.collect.Maps;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.MMOObject;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
@@ -19,6 +8,14 @@ import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import org.spongepowered.api.util.Tuple;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Map;
 
 public class HoconTopDatabase extends MMOObject implements TopDatabase {
 
@@ -64,8 +61,8 @@ public class HoconTopDatabase extends MMOObject implements TopDatabase {
 		Map<Integer, Tuple<String, Integer>> top = Maps.newHashMap();
 
 		for (int i = 1; i <= 10; i++) {
-			top.put(i, new Tuple<String, Integer>(node.getNode(String.valueOf(i), "name").getString(""),
-					node.getNode(String.valueOf(i), "level").getInt(0)));
+			top.put(i, new Tuple<>(node.getNode(String.valueOf(i), "name").getString(""),
+                    node.getNode(String.valueOf(i), "level").getInt(0)));
 		}
 		return top;
 	}

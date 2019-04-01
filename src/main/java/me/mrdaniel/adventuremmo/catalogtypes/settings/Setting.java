@@ -1,9 +1,9 @@
 package me.mrdaniel.adventuremmo.catalogtypes.settings;
 
-import javax.annotation.Nonnull;
-
 import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.util.annotation.CatalogedBy;
+
+import javax.annotation.Nonnull;
 
 @CatalogedBy(Settings.class)
 public class Setting implements CatalogType {

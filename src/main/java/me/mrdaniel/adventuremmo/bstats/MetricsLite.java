@@ -13,23 +13,13 @@ import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.scheduler.Task;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.UUID;
+import java.util.*;
 import java.util.zip.GZIPOutputStream;
 
 public class MetricsLite {
@@ -266,7 +256,7 @@ public class MetricsLite {
 		}
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		GZIPOutputStream gzip = new GZIPOutputStream(outputStream);
-		gzip.write(str.getBytes("UTF-8"));
+		gzip.write(str.getBytes(StandardCharsets.UTF_8));
 		gzip.close();
 		return outputStream.toByteArray();
 	}

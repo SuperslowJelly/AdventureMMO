@@ -1,31 +1,5 @@
 package me.mrdaniel.adventuremmo;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.spongepowered.api.Game;
-import org.spongepowered.api.command.args.GenericArguments;
-import org.spongepowered.api.command.spec.CommandSpec;
-import org.spongepowered.api.config.ConfigDir;
-import org.spongepowered.api.data.DataRegistration;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.GameReloadEvent;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
-import org.spongepowered.api.event.game.state.GameStoppingEvent;
-import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.scheduler.Task;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.format.TextColors;
-
 import me.mrdaniel.adventuremmo.bstats.MetricsLite;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.Ability;
@@ -37,24 +11,9 @@ import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypeRegistryModule;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypeRegistryModule;
-import me.mrdaniel.adventuremmo.commands.CommandBlockClear;
-import me.mrdaniel.adventuremmo.commands.CommandBlockSet;
-import me.mrdaniel.adventuremmo.commands.CommandItemClear;
-import me.mrdaniel.adventuremmo.commands.CommandItemSet;
-import me.mrdaniel.adventuremmo.commands.CommandReload;
-import me.mrdaniel.adventuremmo.commands.CommandSet;
-import me.mrdaniel.adventuremmo.commands.CommandSettings;
-import me.mrdaniel.adventuremmo.commands.CommandSkill;
-import me.mrdaniel.adventuremmo.commands.CommandSkills;
-import me.mrdaniel.adventuremmo.commands.CommandTop;
-import me.mrdaniel.adventuremmo.commands.CommandView;
+import me.mrdaniel.adventuremmo.commands.*;
 import me.mrdaniel.adventuremmo.data.MMOKeys;
-import me.mrdaniel.adventuremmo.data.manipulators.ImmutableMMOData;
-import me.mrdaniel.adventuremmo.data.manipulators.ImmutableSuperToolData;
-import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
-import me.mrdaniel.adventuremmo.data.manipulators.MMODataBuilder;
-import me.mrdaniel.adventuremmo.data.manipulators.SuperToolData;
-import me.mrdaniel.adventuremmo.data.manipulators.SuperToolDataBuilder;
+import me.mrdaniel.adventuremmo.data.manipulators.*;
 import me.mrdaniel.adventuremmo.exception.ServiceException;
 import me.mrdaniel.adventuremmo.io.Config;
 import me.mrdaniel.adventuremmo.io.items.HoconItemDatabase;
@@ -73,6 +32,30 @@ import me.mrdaniel.adventuremmo.managers.MessageManager;
 import me.mrdaniel.adventuremmo.service.AdventureMMOService;
 import me.mrdaniel.adventuremmo.utils.ChoiceMaps;
 import me.mrdaniel.adventuremmo.utils.ItemUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.spongepowered.api.Game;
+import org.spongepowered.api.command.args.GenericArguments;
+import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.config.ConfigDir;
+import org.spongepowered.api.data.DataRegistration;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.GameReloadEvent;
+import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStoppingEvent;
+import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.scheduler.Task;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Plugin(id = "adventuremmo", name = "AdventureMMO", version = "2.1.2", description = "A lightweight plugin that adds skills with all sorts of fun game mechanics to your server.", authors = {
 		"Daniel12321", "rojo8399", "The_Fireplace" })
@@ -148,7 +131,7 @@ public class AdventureMMO {
 		Abilities.VALUES.removeIf(ability -> !config.getNode("abilities", ability.getId(), "enabled").getBoolean(true));
 		Abilities.VALUES.forEach(ability -> ability.setValues(config.getNode("abilities", ability.getId())));
 		SkillTypes.VALUES.removeIf(skill -> !config.getNode("skills", skill.getId(), "enabled").getBoolean(true));
-		SkillTypes.VALUES.forEach(skill -> skill.getAbilities().removeIf(ability -> !ability.isEnabled()));
+		SkillTypes.VALUES.forEach(skill -> skill.getAbilities().removeIf(ability -> ability.isDisabled()));
 
 		// Initializing Managers
 		this.playerdata = new HoconPlayerDatabase(this, this.configdir.resolve("playerdata"));
@@ -180,11 +163,9 @@ public class AdventureMMO {
 				config.getNode("commands", "settings").getList(obj -> (String) obj));
 
 		SkillTypes.VALUES.stream().filter(skill -> config.getNode("commands", skill.getId()).getBoolean(true))
-				.forEach(skill -> {
-					this.game.getCommandManager().register(this, CommandSpec.builder()
-							.description(Text.of(TextColors.BLUE, "AdventureMMO | ", skill.getName(), " Command"))
-							.executor(new CommandSkill(this, skill)).build(), skill.getId());
-				});
+				.forEach(skill -> this.game.getCommandManager().register(this, CommandSpec.builder()
+						.description(Text.of(TextColors.BLUE, "AdventureMMO | ", skill.getName(), " Command"))
+						.executor(new CommandSkill(this, skill)).build(), skill.getId()));
 
 		// Admin Commands
 		this.game.getCommandManager().register(this, CommandSpec.builder()

@@ -1,18 +1,15 @@
 package me.mrdaniel.adventuremmo.catalogtypes.skills;
 
-import java.util.List;
-import java.util.function.BiFunction;
-
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.CatalogType;
-import org.spongepowered.api.util.annotation.CatalogedBy;
-
 import com.google.common.collect.Lists;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.Ability;
 import me.mrdaniel.adventuremmo.io.Config;
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.util.annotation.CatalogedBy;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.function.BiFunction;
 
 @CatalogedBy(SkillTypes.class)
 public class SkillType implements CatalogType {

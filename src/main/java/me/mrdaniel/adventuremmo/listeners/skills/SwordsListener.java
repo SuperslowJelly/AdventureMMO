@@ -1,9 +1,14 @@
 package me.mrdaniel.adventuremmo.listeners.skills;
 
-import java.util.function.Consumer;
-
-import javax.annotation.Nonnull;
-
+import com.flowpowered.math.vector.Vector3d;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
+import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
+import me.mrdaniel.adventuremmo.event.PlayerDamageEntityEvent;
+import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
+import me.mrdaniel.adventuremmo.utils.ItemUtils;
 import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.particle.ParticleOptions;
 import org.spongepowered.api.effect.particle.ParticleTypes;
@@ -16,16 +21,8 @@ import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Color;
 import org.spongepowered.api.util.Tristate;
 
-import com.flowpowered.math.vector.Vector3d;
-
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
-import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
-import me.mrdaniel.adventuremmo.event.PlayerDamageEntityEvent;
-import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
-import me.mrdaniel.adventuremmo.utils.ItemUtils;
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 public class SwordsListener extends ActiveAbilityListener {
 

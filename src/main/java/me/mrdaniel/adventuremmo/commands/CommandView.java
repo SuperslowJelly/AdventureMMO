@@ -1,7 +1,8 @@
 package me.mrdaniel.adventuremmo.commands;
 
-import javax.annotation.Nonnull;
-
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.MMOObject;
+import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
@@ -11,9 +12,7 @@ import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.MMOObject;
-import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
+import javax.annotation.Nonnull;
 
 public class CommandView extends MMOObject implements CommandExecutor {
 

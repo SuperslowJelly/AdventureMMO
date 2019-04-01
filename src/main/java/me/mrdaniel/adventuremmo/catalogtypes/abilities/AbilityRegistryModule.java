@@ -1,11 +1,10 @@
 package me.mrdaniel.adventuremmo.catalogtypes.abilities;
 
-import java.util.Collection;
-import java.util.Optional;
+import org.spongepowered.api.registry.CatalogRegistryModule;
 
 import javax.annotation.Nonnull;
-
-import org.spongepowered.api.registry.CatalogRegistryModule;
+import java.util.Collection;
+import java.util.Optional;
 
 public class AbilityRegistryModule implements CatalogRegistryModule<Ability> {
 

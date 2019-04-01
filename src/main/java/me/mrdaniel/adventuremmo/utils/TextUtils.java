@@ -1,12 +1,12 @@
 package me.mrdaniel.adventuremmo.utils;
 
-import javax.annotation.Nonnull;
-
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.format.TextColor;
 import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.serializer.TextSerializers;
+
+import javax.annotation.Nonnull;
 
 public class TextUtils {
 

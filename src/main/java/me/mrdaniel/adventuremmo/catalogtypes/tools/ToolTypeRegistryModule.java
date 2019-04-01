@@ -1,11 +1,10 @@
 package me.mrdaniel.adventuremmo.catalogtypes.tools;
 
-import java.util.Collection;
-import java.util.Optional;
+import org.spongepowered.api.registry.CatalogRegistryModule;
 
 import javax.annotation.Nonnull;
-
-import org.spongepowered.api.registry.CatalogRegistryModule;
+import java.util.Collection;
+import java.util.Optional;
 
 public class ToolTypeRegistryModule implements CatalogRegistryModule<ToolType> {
 

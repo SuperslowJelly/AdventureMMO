@@ -1,10 +1,9 @@
 package me.mrdaniel.adventuremmo.io.tops;
 
-import java.util.Map;
-
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
 import org.spongepowered.api.util.Tuple;
 
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
+import java.util.Map;
 
 public interface TopDatabase {
 

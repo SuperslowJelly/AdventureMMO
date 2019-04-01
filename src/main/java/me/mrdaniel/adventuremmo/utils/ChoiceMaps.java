@@ -1,17 +1,15 @@
 package me.mrdaniel.adventuremmo.utils;
 
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.Maps;
-
 import me.mrdaniel.adventuremmo.catalogtypes.settings.Setting;
 import me.mrdaniel.adventuremmo.catalogtypes.settings.Settings;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
+
+import javax.annotation.Nonnull;
+import java.util.Map;
 
 public class ChoiceMaps {
 

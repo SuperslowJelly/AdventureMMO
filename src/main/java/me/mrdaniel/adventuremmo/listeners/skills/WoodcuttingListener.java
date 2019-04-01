@@ -1,7 +1,14 @@
 package me.mrdaniel.adventuremmo.listeners.skills;
 
-import javax.annotation.Nonnull;
-
+import com.google.common.collect.Lists;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
+import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
+import me.mrdaniel.adventuremmo.event.BreakBlockEvent;
+import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
+import me.mrdaniel.adventuremmo.utils.ItemUtils;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.TreeType;
@@ -15,16 +22,7 @@ import org.spongepowered.api.world.BlockChangeFlags;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import com.google.common.collect.Lists;
-
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
-import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
-import me.mrdaniel.adventuremmo.event.BreakBlockEvent;
-import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
-import me.mrdaniel.adventuremmo.utils.ItemUtils;
+import javax.annotation.Nonnull;
 
 public class WoodcuttingListener extends ActiveAbilityListener {
 
@@ -44,25 +42,23 @@ public class WoodcuttingListener extends ActiveAbilityListener {
 			}
 
 			if (e.getPlayer().get(MMOData.class).orElse(new MMOData()).isAbilityActive(super.ability.getId())) {
-				Task.builder().delayTicks(2).execute(() -> {
-					Lists.newArrayList(Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST)
-							.forEach(direction -> {
-								Location<World> newloc = e.getLocation().getRelative(direction);
-								super.getMMO().getItemDatabase().getData(newloc.getBlockType()).ifPresent(blockdata -> {
-									if (blockdata.getSkill() == this.skill) {
-										ItemStackSnapshot item = ItemUtils.build(newloc.getBlockType().getItem().get(),
-												Abilities.DOUBLE_DROP.getChance(pdata.getLevel(super.skill)) ? 1 : 2,
-												this.matchTree(
-														newloc.getBlock().get(Keys.TREE_TYPE).orElse(TreeTypes.OAK)))
-												.createSnapshot();
-										newloc.setBlockType(BlockTypes.AIR, BlockChangeFlags.ALL);
-										ItemUtils.drop(newloc, item);
-										super.getGame().getEventManager().post(new BreakBlockEvent(super.getMMO(),
-												e.getPlayer(), newloc, blockdata, this.tool));
-									}
-								});
-							});
-				}).submit(super.getMMO());
+				Task.builder().delayTicks(2).execute(() -> Lists.newArrayList(Direction.UP, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST)
+                        .forEach(direction -> {
+                            Location<World> newloc = e.getLocation().getRelative(direction);
+                            super.getMMO().getItemDatabase().getData(newloc.getBlockType()).ifPresent(blockdata -> {
+                                if (blockdata.getSkill() == this.skill) {
+                                    ItemStackSnapshot item = ItemUtils.build(newloc.getBlockType().getItem().get(),
+                                            Abilities.DOUBLE_DROP.getChance(pdata.getLevel(super.skill)) ? 1 : 2,
+                                            this.matchTree(
+                                                    newloc.getBlock().get(Keys.TREE_TYPE).orElse(TreeTypes.OAK)))
+                                            .createSnapshot();
+                                    newloc.setBlockType(BlockTypes.AIR, BlockChangeFlags.ALL);
+                                    ItemUtils.drop(newloc, item);
+                                    super.getGame().getEventManager().post(new BreakBlockEvent(super.getMMO(),
+                                            e.getPlayer(), newloc, blockdata, this.tool));
+                                }
+                            });
+                        })).submit(super.getMMO());
 			}
 		}
 	}

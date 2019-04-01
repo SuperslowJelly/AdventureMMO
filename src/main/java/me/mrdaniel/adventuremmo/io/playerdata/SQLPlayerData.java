@@ -1,8 +1,8 @@
 package me.mrdaniel.adventuremmo.io.playerdata;
 
-import javax.annotation.Nonnull;
-
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
+
+import javax.annotation.Nonnull;
 
 public class SQLPlayerData implements PlayerData {
 
@@ -45,6 +45,5 @@ public class SQLPlayerData implements PlayerData {
 
 	@Override
 	public void save() {
-		;
-	}
+    }
 }

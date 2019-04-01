@@ -1,13 +1,12 @@
 package me.mrdaniel.adventuremmo.catalogtypes.abilities.abilities;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.entity.living.player.Player;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.ActiveAbilityActions;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
 import me.mrdaniel.adventuremmo.utils.ItemUtils;
+import org.spongepowered.api.entity.living.player.Player;
+
+import javax.annotation.Nonnull;
 
 public class SuperTool implements ActiveAbilityActions {
 

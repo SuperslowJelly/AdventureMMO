@@ -1,15 +1,5 @@
 package me.mrdaniel.adventuremmo.listeners.skills;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.type.HandTypes;
-import org.spongepowered.api.entity.ArmorEquipable;
-import org.spongepowered.api.entity.Entity;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.scheduler.Task;
-import org.spongepowered.api.util.Tristate;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
@@ -18,6 +8,15 @@ import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
 import me.mrdaniel.adventuremmo.event.PlayerDamageEntityEvent;
 import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
 import me.mrdaniel.adventuremmo.utils.ItemUtils;
+import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.data.type.HandTypes;
+import org.spongepowered.api.entity.ArmorEquipable;
+import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.scheduler.Task;
+import org.spongepowered.api.util.Tristate;
+
+import javax.annotation.Nonnull;
 
 public class UnarmedListener extends ActiveAbilityListener {
 

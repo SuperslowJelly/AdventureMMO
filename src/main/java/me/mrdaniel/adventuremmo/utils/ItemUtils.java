@@ -1,10 +1,10 @@
 package me.mrdaniel.adventuremmo.utils;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
+import com.google.common.collect.Lists;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
+import me.mrdaniel.adventuremmo.data.manipulators.SuperToolData;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.key.Keys;
@@ -29,12 +29,9 @@ import org.spongepowered.api.text.format.TextStyles;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import com.google.common.collect.Lists;
-
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
-import me.mrdaniel.adventuremmo.data.manipulators.SuperToolData;
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Optional;
 
 public class ItemUtils {
 
@@ -123,7 +120,7 @@ public class ItemUtils {
 		List<Enchantment> enchants = Lists.newArrayList();
 		mmo.getGame().getRegistry().getAllOf(EnchantmentType.class).forEach(ench -> {
 			if (Math.random() > 0.9 && ench.canBeAppliedByTable(item)) {
-				enchants.add(Enchantment.of(ench, (int) Math.random() * ench.getMaximumLevel() + 1));
+				enchants.add(Enchantment.of(ench, (int) (Math.random() * ench.getMaximumLevel()) + 1));
 			}
 		});
 		item.offer(Keys.ITEM_ENCHANTMENTS, enchants);

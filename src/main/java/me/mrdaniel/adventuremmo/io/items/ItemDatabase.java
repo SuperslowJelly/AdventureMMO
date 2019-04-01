@@ -1,16 +1,14 @@
 package me.mrdaniel.adventuremmo.io.items;
 
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
 import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
 
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Optional;
 
 public interface ItemDatabase {
 

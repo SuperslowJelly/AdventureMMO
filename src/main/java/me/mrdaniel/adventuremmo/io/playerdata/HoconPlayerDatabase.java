@@ -1,5 +1,9 @@
 package me.mrdaniel.adventuremmo.io.playerdata;
 
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import org.spongepowered.api.scheduler.Task;
+
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,12 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.scheduler.Task;
-
-import me.mrdaniel.adventuremmo.AdventureMMO;
-
 public class HoconPlayerDatabase implements PlayerDatabase {
 
 	private final Path path;
@@ -23,7 +21,7 @@ public class HoconPlayerDatabase implements PlayerDatabase {
 
 	public HoconPlayerDatabase(@Nonnull final AdventureMMO mmo, @Nonnull final Path path) {
 		this.path = path;
-		this.players = new ConcurrentHashMap<UUID, HoconPlayerData>();
+		this.players = new ConcurrentHashMap<>();
 
 		if (!Files.exists(path)) {
 			try {
@@ -34,10 +32,10 @@ public class HoconPlayerDatabase implements PlayerDatabase {
 		}
 
 		Task.builder().async().delay(30, TimeUnit.SECONDS).interval(30, TimeUnit.SECONDS).execute(() -> {
-			this.players.values().forEach(data -> data.save());
+			this.players.values().forEach(HoconPlayerData::save);
 			this.players.entrySet().stream()
-					.filter(e -> e.getValue().getLastUse() < System.currentTimeMillis() - 180000).map(e -> e.getKey())
-					.collect(Collectors.toList()).forEach(uuid -> this.players.remove(uuid));
+					.filter(e -> e.getValue().getLastUse() < System.currentTimeMillis() - 180000).map(Map.Entry::getKey)
+					.collect(Collectors.toList()).forEach(this.players::remove);
 		}).submit(mmo);
 	}
 
@@ -51,7 +49,7 @@ public class HoconPlayerDatabase implements PlayerDatabase {
 
 	@Override
 	public synchronized void unloadAll() {
-		this.players.values().forEach(data -> data.save());
+		this.players.values().forEach(HoconPlayerData::save);
 		this.players.clear();
 	}
 

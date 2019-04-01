@@ -1,14 +1,12 @@
 package me.mrdaniel.adventuremmo.commands;
 
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.entity.living.player.Player;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
+import javax.annotation.Nonnull;
+import java.util.Optional;
 
 public class CommandSkills extends PlayerCommand {
 

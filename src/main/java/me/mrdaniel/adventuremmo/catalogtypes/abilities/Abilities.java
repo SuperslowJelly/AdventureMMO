@@ -1,14 +1,12 @@
 package me.mrdaniel.adventuremmo.catalogtypes.abilities;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.Lists;
-
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.abilities.SuperTool;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Optional;
 
 public final class Abilities {
 

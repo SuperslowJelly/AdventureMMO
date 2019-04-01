@@ -1,12 +1,10 @@
 package me.mrdaniel.adventuremmo.commands;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.command.CommandException;
+import me.mrdaniel.adventuremmo.AdventureMMO;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.entity.living.player.Player;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
+import javax.annotation.Nonnull;
 
 public class CommandSettings extends PlayerCommand {
 
@@ -17,7 +15,7 @@ public class CommandSettings extends PlayerCommand {
 	}
 
 	@Override
-	public void execute(final Player p, final CommandContext args) throws CommandException {
+	public void execute(final Player p, final CommandContext args) {
 		this.mmo.getMenus().sendSettingsInfo(p);
 	}
 }

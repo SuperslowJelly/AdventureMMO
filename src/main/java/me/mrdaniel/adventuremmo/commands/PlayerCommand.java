@@ -23,5 +23,5 @@ public abstract class PlayerCommand implements CommandExecutor {
 		return CommandResult.success();
 	}
 
-	public abstract void execute(Player p, CommandContext args) throws CommandException;
+	public abstract void execute(Player p, CommandContext args);
 }

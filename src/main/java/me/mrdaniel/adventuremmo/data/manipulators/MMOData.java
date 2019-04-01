@@ -1,10 +1,8 @@
 package me.mrdaniel.adventuremmo.data.manipulators;
 
-import java.util.Map;
-import java.util.Optional;
-
-import javax.annotation.Nonnull;
-
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
+import me.mrdaniel.adventuremmo.data.MMOKeys;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataHolder;
 import org.spongepowered.api.data.DataView;
@@ -12,10 +10,9 @@ import org.spongepowered.api.data.manipulator.mutable.common.AbstractData;
 import org.spongepowered.api.data.merge.MergeFunction;
 import org.spongepowered.api.data.value.mutable.Value;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
-
-import me.mrdaniel.adventuremmo.data.MMOKeys;
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.Optional;
 
 public class MMOData extends AbstractData<MMOData, ImmutableMMOData> {
 

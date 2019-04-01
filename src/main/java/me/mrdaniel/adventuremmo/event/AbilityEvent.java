@@ -1,18 +1,17 @@
 package me.mrdaniel.adventuremmo.event;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.ActiveAbility;
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Cancellable;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.impl.AbstractEvent;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.ActiveAbility;
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class AbilityEvent extends AbstractEvent implements Cancellable {
 

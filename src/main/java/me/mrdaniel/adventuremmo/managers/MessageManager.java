@@ -1,14 +1,5 @@
 package me.mrdaniel.adventuremmo.managers;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.block.BlockType;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.item.ItemType;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.chat.ChatTypes;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.MMOObject;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.Ability;
@@ -17,6 +8,14 @@ import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
 import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
 import me.mrdaniel.adventuremmo.utils.TextUtils;
 import ninja.leaping.configurate.ConfigurationNode;
+import org.spongepowered.api.block.BlockType;
+import org.spongepowered.api.command.CommandSource;
+import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.chat.ChatTypes;
+
+import javax.annotation.Nonnull;
 
 public class MessageManager extends MMOObject {
 

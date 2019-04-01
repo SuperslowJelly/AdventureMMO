@@ -1,7 +1,11 @@
 package me.mrdaniel.adventuremmo.listeners.skills;
 
-import javax.annotation.Nonnull;
-
+import com.flowpowered.math.vector.Vector3d;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.MMOObject;
+import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
+import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
+import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.EntityArchetype;
 import org.spongepowered.api.entity.living.player.Player;
@@ -15,13 +19,7 @@ import org.spongepowered.api.event.filter.IsCancelled;
 import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.util.Tristate;
 
-import com.flowpowered.math.vector.Vector3d;
-
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.MMOObject;
-import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
-import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
-import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
+import javax.annotation.Nonnull;
 
 public class ArcheryListener extends MMOObject {
 

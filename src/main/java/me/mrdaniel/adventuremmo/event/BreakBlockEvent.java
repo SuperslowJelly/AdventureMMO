@@ -1,8 +1,8 @@
 package me.mrdaniel.adventuremmo.event;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
+import me.mrdaniel.adventuremmo.io.items.BlockData;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
@@ -10,9 +10,8 @@ import org.spongepowered.api.event.impl.AbstractEvent;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
-import me.mrdaniel.adventuremmo.io.items.BlockData;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BreakBlockEvent extends AbstractEvent {
 

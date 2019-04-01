@@ -1,17 +1,15 @@
 package me.mrdaniel.adventuremmo.listeners;
 
-import java.math.BigDecimal;
-
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.service.ChangeServiceProviderEvent;
-import org.spongepowered.api.service.economy.EconomyService;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.event.LevelUpEvent;
 import me.mrdaniel.adventuremmo.exception.ServiceException;
 import me.mrdaniel.adventuremmo.io.Config;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.service.ChangeServiceProviderEvent;
+import org.spongepowered.api.service.economy.EconomyService;
+
+import javax.annotation.Nonnull;
+import java.math.BigDecimal;
 
 public class EconomyListener {
 
@@ -29,10 +27,8 @@ public class EconomyListener {
 
 	@Listener
 	public void onLevelUp(final LevelUpEvent e) {
-		this.economy.getOrCreateAccount(e.getPlayer().getUniqueId()).ifPresent(account -> {
-			account.deposit(this.economy.getDefaultCurrency(),
-					new BigDecimal(this.initial + (e.getNewLevel() * this.increment)), e.getCause());
-		});
+		this.economy.getOrCreateAccount(e.getPlayer().getUniqueId()).ifPresent(account -> account.deposit(this.economy.getDefaultCurrency(),
+                new BigDecimal(this.initial + (e.getNewLevel() * this.increment)), e.getCause()));
 	}
 
 	@Listener

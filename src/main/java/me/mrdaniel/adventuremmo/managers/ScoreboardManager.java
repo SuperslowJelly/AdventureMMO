@@ -1,12 +1,10 @@
 package me.mrdaniel.adventuremmo.managers;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.function.Function;
-
-import javax.annotation.Nonnull;
-
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import me.mrdaniel.adventuremmo.AdventureMMO;
+import me.mrdaniel.adventuremmo.MMOObject;
+import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.scoreboard.Scoreboard;
@@ -15,12 +13,11 @@ import org.spongepowered.api.scoreboard.displayslot.DisplaySlots;
 import org.spongepowered.api.scoreboard.objective.Objective;
 import org.spongepowered.api.text.Text;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
-
-import me.mrdaniel.adventuremmo.AdventureMMO;
-import me.mrdaniel.adventuremmo.MMOObject;
-import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Function;
 
 public class ScoreboardManager extends MMOObject {
 
@@ -46,9 +43,7 @@ public class ScoreboardManager extends MMOObject {
 			@Nonnull final Function<PlayerData, Multimap<Integer, Text>> function) {
 		this.unload(p);
 
-		this.tasks.put(p.getUniqueId(), Task.builder().delayTicks(0).intervalTicks(100).execute(t -> {
-			this.set(p, title, function.apply(super.getMMO().getPlayerDatabase().get(p.getUniqueId())));
-		}).submit(super.getMMO()));
+		this.tasks.put(p.getUniqueId(), Task.builder().delayTicks(0).intervalTicks(100).execute(t -> this.set(p, title, function.apply(super.getMMO().getPlayerDatabase().get(p.getUniqueId())))).submit(super.getMMO()));
 	}
 
 	private void set(@Nonnull final Player p, @Nonnull final Text title, @Nonnull final Multimap<Integer, Text> lines) {

@@ -1,14 +1,12 @@
 package me.mrdaniel.adventuremmo.data.manipulators;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
+import me.mrdaniel.adventuremmo.data.MMOKeys;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.manipulator.immutable.common.AbstractImmutableData;
 import org.spongepowered.api.item.enchantment.Enchantment;
 
-import me.mrdaniel.adventuremmo.data.MMOKeys;
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ImmutableSuperToolData extends AbstractImmutableData<ImmutableSuperToolData, SuperToolData> {
 

@@ -1,10 +1,5 @@
 package me.mrdaniel.adventuremmo.listeners.skills;
 
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.util.Tristate;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.Abilities;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillTypes;
@@ -12,6 +7,10 @@ import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
 import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
 import me.mrdaniel.adventuremmo.event.BreakBlockEvent;
 import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.util.Tristate;
+
+import javax.annotation.Nonnull;
 
 public class FarmingListener extends ActiveAbilityListener {
 

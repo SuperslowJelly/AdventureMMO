@@ -1,13 +1,11 @@
 package me.mrdaniel.adventuremmo.data.manipulators;
 
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
+import me.mrdaniel.adventuremmo.data.MMOKeys;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.manipulator.immutable.common.AbstractImmutableData;
 
-import me.mrdaniel.adventuremmo.data.MMOKeys;
+import javax.annotation.Nonnull;
+import java.util.Map;
 
 public class ImmutableMMOData extends AbstractImmutableData<ImmutableMMOData, MMOData> {
 

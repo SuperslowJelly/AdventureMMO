@@ -1,9 +1,9 @@
 package me.mrdaniel.adventuremmo.service;
 
-import javax.annotation.Nonnull;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.io.playerdata.PlayerDatabase;
+
+import javax.annotation.Nonnull;
 
 public class AdventureMMOService {
 

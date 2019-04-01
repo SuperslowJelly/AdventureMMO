@@ -1,16 +1,14 @@
 package me.mrdaniel.adventuremmo.io.playerdata;
 
-import java.util.Optional;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
-import org.spongepowered.api.entity.living.player.Player;
-
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
 import me.mrdaniel.adventuremmo.event.LevelUpEvent;
 import me.mrdaniel.adventuremmo.utils.MathUtils;
+import org.spongepowered.api.entity.living.player.Player;
+
+import javax.annotation.Nonnull;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface PlayerDatabase {
 
