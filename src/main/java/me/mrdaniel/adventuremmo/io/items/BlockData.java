@@ -34,7 +34,7 @@ public class BlockData {
 	public static Optional<BlockData> deserialize(@Nonnull final String str) {
 		String[] s = str.split(",");
 		try {
-			return Optional.of(new BlockData(SkillTypes.of(s[0]).get(), Integer.valueOf(s[1])));
+			return Optional.of(new BlockData(SkillTypes.of(s[0]).get(), Integer.parseInt(s[1])));
 		} catch (final Exception exc) {
 			return Optional.empty();
 		}

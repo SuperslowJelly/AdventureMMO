@@ -33,6 +33,7 @@ import org.spongepowered.api.event.entity.DamageEntityEvent;
 import org.spongepowered.api.event.filter.IsCancelled;
 import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.filter.cause.Root;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Tristate;
 
@@ -57,7 +58,7 @@ public class AbilitiesListener extends MMOObject {
 	@IsCancelled(value = Tristate.FALSE)
 	public void onBlockBreak(final ChangeBlockEvent.Break e, @Root final Player p) {
 		Optional<ToolData> handdata = super.getMMO().getItemDatabase()
-				.getData(p.getItemInHand(HandTypes.MAIN_HAND).orElse(null));
+				.getData(p.getItemInHand(HandTypes.MAIN_HAND).orElse(ItemStack.empty()));
 
 		e.getTransactions().forEach(trans -> super.getMMO().getItemDatabase().getData(trans.getOriginal().getState().getType()).ifPresent(blockdata -> {
 			if (!trans.getOriginal().getCreator().isPresent())
@@ -73,7 +74,7 @@ public class AbilitiesListener extends MMOObject {
 	public void onDamage(final DamageEntityEvent e, @First final EntityDamageSource source) {
 		if (source.getSource() instanceof Player) {
 			Player p = (Player) source.getSource();
-			super.getMMO().getItemDatabase().getData(p.getItemInHand(HandTypes.MAIN_HAND).orElse(null)).ifPresent(
+			super.getMMO().getItemDatabase().getData(p.getItemInHand(HandTypes.MAIN_HAND).orElse(ItemStack.empty())).ifPresent(
 					handdata -> super.getGame().getEventManager().post(new PlayerDamageEntityEvent(super.getMMO(), p,
 							e.getTargetEntity(), handdata.getType(), e.getFinalDamage(), e.willCauseDeath())));
 		}
@@ -87,7 +88,7 @@ public class AbilitiesListener extends MMOObject {
 		}
 
 		Optional<ToolData> handdata = super.getMMO().getItemDatabase()
-				.getData(p.getItemInHand(HandTypes.MAIN_HAND).orElse(null));
+				.getData(p.getItemInHand(HandTypes.MAIN_HAND).orElse(ItemStack.empty()));
 		if (!handdata.isPresent()) {
 			return;
 		}

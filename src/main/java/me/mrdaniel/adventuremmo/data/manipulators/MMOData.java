@@ -9,11 +9,13 @@ import org.spongepowered.api.data.DataView;
 import org.spongepowered.api.data.manipulator.mutable.common.AbstractData;
 import org.spongepowered.api.data.merge.MergeFunction;
 import org.spongepowered.api.data.value.mutable.Value;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Optional;
 
+@NonnullByDefault
 public class MMOData extends AbstractData<MMOData, ImmutableMMOData> {
 
 	private Map<String, Long> delays;

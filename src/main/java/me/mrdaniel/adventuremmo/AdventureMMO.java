@@ -131,7 +131,7 @@ public class AdventureMMO {
 		Abilities.VALUES.removeIf(ability -> !config.getNode("abilities", ability.getId(), "enabled").getBoolean(true));
 		Abilities.VALUES.forEach(ability -> ability.setValues(config.getNode("abilities", ability.getId())));
 		SkillTypes.VALUES.removeIf(skill -> !config.getNode("skills", skill.getId(), "enabled").getBoolean(true));
-		SkillTypes.VALUES.forEach(skill -> skill.getAbilities().removeIf(ability -> ability.isDisabled()));
+		SkillTypes.VALUES.forEach(skill -> skill.getAbilities().removeIf(Ability::isDisabled));
 
 		// Initializing Managers
 		this.playerdata = new HoconPlayerDatabase(this, this.configdir.resolve("playerdata"));

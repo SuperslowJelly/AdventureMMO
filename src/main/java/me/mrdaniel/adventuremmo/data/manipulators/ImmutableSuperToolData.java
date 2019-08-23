@@ -4,17 +4,18 @@ import me.mrdaniel.adventuremmo.data.MMOKeys;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.manipulator.immutable.common.AbstractImmutableData;
 import org.spongepowered.api.item.enchantment.Enchantment;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
+@NonnullByDefault
 public class ImmutableSuperToolData extends AbstractImmutableData<ImmutableSuperToolData, SuperToolData> {
 
 	private final List<Enchantment> enchants;
 	private final String name;
 	private final int durability;
 
-	public ImmutableSuperToolData(@Nonnull final List<Enchantment> enchants, @Nonnull final String name,
+	public ImmutableSuperToolData(final List<Enchantment> enchants, final String name,
 			final int durability) {
 		this.enchants = enchants;
 		this.name = name;

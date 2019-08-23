@@ -7,12 +7,14 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.impl.AbstractEvent;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@NonnullByDefault
 public class BreakBlockEvent extends AbstractEvent {
 
 	private final Player player;
@@ -22,8 +24,8 @@ public class BreakBlockEvent extends AbstractEvent {
 
 	private final Cause cause;
 
-	public BreakBlockEvent(@Nonnull final AdventureMMO mmo, @Nonnull final Player player,
-			@Nonnull final Location<World> location, @Nonnull final BlockData block, @Nullable final ToolType tool) {
+	public BreakBlockEvent(final AdventureMMO mmo, final Player player,
+			final Location<World> location, final BlockData block, final ToolType tool) {
 		this.player = player;
 		this.location = location;
 		this.block = block;

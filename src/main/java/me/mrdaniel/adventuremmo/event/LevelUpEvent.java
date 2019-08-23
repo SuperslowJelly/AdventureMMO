@@ -7,9 +7,11 @@ import org.spongepowered.api.event.Cancellable;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.impl.AbstractEvent;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
 import javax.annotation.Nonnull;
 
+@NonnullByDefault
 public class LevelUpEvent extends AbstractEvent implements Cancellable {
 
 	private final Player player;

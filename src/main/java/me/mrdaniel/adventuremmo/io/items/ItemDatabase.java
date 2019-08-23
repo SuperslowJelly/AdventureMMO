@@ -7,7 +7,6 @@ import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 public interface ItemDatabase {
@@ -16,7 +15,7 @@ public interface ItemDatabase {
 
 	Optional<ToolData> getData(ItemType type);
 
-	Optional<ToolData> getData(@Nullable ItemStack item);
+	Optional<ToolData> getData(@Nonnull ItemStack item);
 
 	void set(ItemType item, @Nonnull ToolType one);
 

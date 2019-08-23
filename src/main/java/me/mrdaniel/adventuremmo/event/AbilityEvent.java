@@ -9,10 +9,12 @@ import org.spongepowered.api.event.Cancellable;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
 import org.spongepowered.api.event.impl.AbstractEvent;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@NonnullByDefault
 public class AbilityEvent extends AbstractEvent implements Cancellable {
 
 	private final Player player;
@@ -27,7 +29,7 @@ public class AbilityEvent extends AbstractEvent implements Cancellable {
 	@Nullable
 	private SkillType skill;
 
-	public AbilityEvent(@Nonnull final AdventureMMO mmo, @Nonnull final Player player, @Nonnull final ToolType tool,
+	public AbilityEvent(final AdventureMMO mmo, final Player player, final ToolType tool,
 			final boolean onblock) {
 		this.player = player;
 		this.tool = tool;

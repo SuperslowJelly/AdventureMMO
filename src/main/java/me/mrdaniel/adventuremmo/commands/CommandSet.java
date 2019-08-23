@@ -12,9 +12,11 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.User;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
 import javax.annotation.Nonnull;
 
+@NonnullByDefault
 public class CommandSet extends MMOObject implements CommandExecutor {
 
 	public CommandSet(@Nonnull final AdventureMMO mmo) {

@@ -14,11 +14,13 @@ import org.spongepowered.api.data.value.mutable.ListValue;
 import org.spongepowered.api.data.value.mutable.Value;
 import org.spongepowered.api.item.enchantment.Enchantment;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 
+@NonnullByDefault
 public class SuperToolData extends AbstractData<SuperToolData, ImmutableSuperToolData> {
 
 	private List<Enchantment> enchants;

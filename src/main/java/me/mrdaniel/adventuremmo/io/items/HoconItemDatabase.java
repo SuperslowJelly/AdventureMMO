@@ -15,7 +15,6 @@ import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.item.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,7 +41,7 @@ public class HoconItemDatabase extends MMOObject implements ItemDatabase {
 			try {
 				mmo.getContainer().getAsset("itemdata.conf").get().copyToFile(path);
 			} catch (final IOException exc) {
-				mmo.getLogger().error("Failed to create itemdata file: {}", exc);
+				mmo.getLogger().error("Failed to create itemdata file: ", exc);
 			}
 		}
 		this.node = this.load();
@@ -84,7 +83,7 @@ public class HoconItemDatabase extends MMOObject implements ItemDatabase {
 		try {
 			return this.loader.load();
 		} catch (final IOException exc) {
-			super.getMMO().getLogger().error("Failed to load itemdata file: {}", exc);
+			super.getMMO().getLogger().error("Failed to load itemdata file: ", exc);
 			return this.loader.createEmptyNode();
 		}
 	}
@@ -93,7 +92,7 @@ public class HoconItemDatabase extends MMOObject implements ItemDatabase {
 		try {
 			this.loader.save(this.node);
 		} catch (final IOException exc) {
-			super.getLogger().error("Failed to save itemdata file: {}", exc);
+			super.getLogger().error("Failed to save itemdata file: ", exc);
 		}
 	}
 
@@ -111,15 +110,14 @@ public class HoconItemDatabase extends MMOObject implements ItemDatabase {
 
 	@Override
 	@Nonnull
-	public Optional<ToolData> getData(@Nullable final ItemStack item) {
-		if (item == null) {
+	public Optional<ToolData> getData(@Nonnull final ItemStack item) {
+		if (item.isEmpty())
 			return Optional.of(new ToolData(ToolTypes.HAND));
-		}
 		return Optional.ofNullable(this.tools.get(item.getType()));
 	}
 
 	@Override
-	public void set(@Nonnull final ItemType item, @Nullable final ToolType tool) {
+	public void set(@Nonnull final ItemType item, @Nonnull final ToolType tool) {
 		ToolData data = new ToolData(tool);
 		this.tools.put(item, data);
 		this.node.getNode("tools", item.getId()).setValue(data.serialize());

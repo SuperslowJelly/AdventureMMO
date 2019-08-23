@@ -1,11 +1,13 @@
 package me.mrdaniel.adventuremmo.catalogtypes.tools;
 
 import org.spongepowered.api.registry.CatalogRegistryModule;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Optional;
 
+@NonnullByDefault
 public class ToolTypeRegistryModule implements CatalogRegistryModule<ToolType> {
 
 	@Override

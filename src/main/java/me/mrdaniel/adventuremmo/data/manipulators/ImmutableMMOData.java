@@ -3,10 +3,11 @@ package me.mrdaniel.adventuremmo.data.manipulators;
 import me.mrdaniel.adventuremmo.data.MMOKeys;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.manipulator.immutable.common.AbstractImmutableData;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
-import javax.annotation.Nonnull;
 import java.util.Map;
 
+@NonnullByDefault
 public class ImmutableMMOData extends AbstractImmutableData<ImmutableMMOData, MMOData> {
 
 	private final Map<String, Long> delays;
@@ -16,7 +17,7 @@ public class ImmutableMMOData extends AbstractImmutableData<ImmutableMMOData, MM
 	private final boolean scoreboard;
 	private final boolean scoreboard_permanent;
 
-	public ImmutableMMOData(@Nonnull final Map<String, Long> delays, @Nonnull final Map<String, Long> abilities,
+	public ImmutableMMOData(final Map<String, Long> delays, final Map<String, Long> abilities,
 			final boolean action_bar, final boolean scoreboard, final boolean scoreboard_permanent) {
 		this.delays = delays;
 		this.abilities = abilities;

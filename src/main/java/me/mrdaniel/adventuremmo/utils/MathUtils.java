@@ -7,6 +7,7 @@ public class MathUtils {
 	}
 
 	public static int between(final int value, final int min, final int max) {
+		//noinspection ManualMinMaxCalculation
 		return value < min ? min : value > max ? max : value;
 	}
 

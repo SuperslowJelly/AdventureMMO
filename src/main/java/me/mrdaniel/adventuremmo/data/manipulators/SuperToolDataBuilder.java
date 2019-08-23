@@ -5,10 +5,12 @@ import org.spongepowered.api.data.DataView;
 import org.spongepowered.api.data.manipulator.DataManipulatorBuilder;
 import org.spongepowered.api.data.persistence.AbstractDataBuilder;
 import org.spongepowered.api.data.persistence.InvalidDataException;
+import org.spongepowered.api.util.annotation.NonnullByDefault;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
+@NonnullByDefault
 public class SuperToolDataBuilder extends AbstractDataBuilder<SuperToolData>
 		implements DataManipulatorBuilder<SuperToolData, ImmutableSuperToolData> {
 
