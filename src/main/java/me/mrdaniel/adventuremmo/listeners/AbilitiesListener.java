@@ -99,10 +99,10 @@ public class AbilitiesListener extends MMOObject {
 				e.setBaseDamage(e.getBaseDamage() * 0.5);
 				if(e.getTargetEntity() instanceof ArmorEquipable) {
 					ArmorEquipable ae = (ArmorEquipable) e.getTargetEntity();
-					ae.getBoots().ifPresent(stack -> stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1))));
-					ae.getLeggings().ifPresent(stack -> stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1))));
-					ae.getChestplate().ifPresent(stack -> stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1))));
-					ae.getHelmet().ifPresent(stack -> stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1))));
+					ae.getBoots().ifPresent(stack -> {if(stack.get(Keys.ITEM_DURABILITY).isPresent()) stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1)));});
+					ae.getLeggings().ifPresent(stack -> {if(stack.get(Keys.ITEM_DURABILITY).isPresent()) stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1)));});
+					ae.getChestplate().ifPresent(stack -> {if(stack.get(Keys.ITEM_DURABILITY).isPresent()) stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1)));});
+					ae.getHelmet().ifPresent(stack -> {if(stack.get(Keys.ITEM_DURABILITY).isPresent()) stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1)));});
 				}
 			}
 		}
