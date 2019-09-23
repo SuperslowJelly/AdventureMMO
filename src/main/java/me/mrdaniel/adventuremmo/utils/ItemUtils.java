@@ -111,6 +111,7 @@ public class ItemUtils {
 		p.closeInventory();
 		// API 6 p.closeInventory(ServerUtils.getCause(container,
 		// NamedCause.of("player", p)));
+		//noinspection SimplifyOptionalCallChains
 		p.getInventory().slots().forEach(slot -> slot.peek()
 				.ifPresent(item -> item.get(SuperToolData.class).ifPresent(data -> slot.set(data.restore(item)))));
 	}
