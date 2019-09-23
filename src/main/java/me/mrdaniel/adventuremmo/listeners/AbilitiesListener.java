@@ -9,6 +9,7 @@ import me.mrdaniel.adventuremmo.catalogtypes.abilities.Ability;
 import me.mrdaniel.adventuremmo.catalogtypes.abilities.ActiveAbility;
 import me.mrdaniel.adventuremmo.catalogtypes.skills.SkillType;
 import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolType;
+import me.mrdaniel.adventuremmo.catalogtypes.tools.ToolTypes;
 import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
 import me.mrdaniel.adventuremmo.event.AbilityEvent;
 import me.mrdaniel.adventuremmo.event.BreakBlockEvent;
@@ -17,12 +18,16 @@ import me.mrdaniel.adventuremmo.event.PlayerDamageEntityEvent;
 import me.mrdaniel.adventuremmo.io.Config;
 import me.mrdaniel.adventuremmo.io.items.ToolData;
 import me.mrdaniel.adventuremmo.utils.MathUtils;
+import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.data.manipulator.mutable.entity.DamageableData;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.particle.ParticleTypes;
 import org.spongepowered.api.effect.sound.SoundTypes;
+import org.spongepowered.api.entity.ArmorEquipable;
+import org.spongepowered.api.entity.Equipable;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
@@ -33,7 +38,9 @@ import org.spongepowered.api.event.entity.DamageEntityEvent;
 import org.spongepowered.api.event.filter.IsCancelled;
 import org.spongepowered.api.event.filter.cause.First;
 import org.spongepowered.api.event.filter.cause.Root;
+import org.spongepowered.api.event.item.inventory.InteractItemEvent;
 import org.spongepowered.api.item.inventory.ItemStack;
+import org.spongepowered.api.item.inventory.equipment.EquipmentTypes;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Tristate;
 
@@ -78,11 +85,32 @@ public class AbilitiesListener extends MMOObject {
 					handdata -> super.getGame().getEventManager().post(new PlayerDamageEntityEvent(super.getMMO(), p,
 							e.getTargetEntity(), handdata.getType(), e.getFinalDamage(), e.willCauseDeath())));
 		}
+
+		//Tweak axes to deal additional armor damage and less health damage
+		if(source.getSource() instanceof Equipable) {
+			Equipable eq = (Equipable) source.getSource();
+			Optional<ToolData> handdata = super.getMMO().getItemDatabase()
+					.getData(eq.getEquipped(EquipmentTypes.MAIN_HAND).orElse(ItemStack.empty()));
+			if (!handdata.isPresent()) {
+				return;
+			}
+			ToolType tool = handdata.get().getType();
+			if(tool.equals(ToolTypes.AXE)) {
+				e.setBaseDamage(e.getBaseDamage() * 0.5);
+				if(e.getTargetEntity() instanceof ArmorEquipable) {
+					ArmorEquipable ae = (ArmorEquipable) e.getTargetEntity();
+					ae.getBoots().ifPresent(stack -> stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1))));
+					ae.getLeggings().ifPresent(stack -> stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1))));
+					ae.getChestplate().ifPresent(stack -> stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1))));
+					ae.getHelmet().ifPresent(stack -> stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1))));
+				}
+			}
+		}
 	}
 
 	@Listener(order = Order.LATE)
 	@IsCancelled(value = Tristate.FALSE)
-	public void onBlockClick(final InteractBlockEvent.Secondary.MainHand e, @Root final Player p) {
+	public void onBlockClick(final InteractItemEvent.Secondary.MainHand e, @Root final Player p) {
 		if (!p.get(Keys.IS_SNEAKING).orElse(false)) {
 			return;
 		}
@@ -95,7 +123,7 @@ public class AbilitiesListener extends MMOObject {
 		ToolType tool = handdata.get().getType();
 
 		AbilityEvent ae = new AbilityEvent(super.getMMO(), p, tool,
-				e.getTargetBlock().getState().getType() != BlockTypes.AIR);
+				e.getInteractionPoint().isPresent() && p.getWorld().getBlock(e.getInteractionPoint().get().toInt()).getType() != BlockTypes.AIR);
 		super.getGame().getEventManager().post(ae);
 		if (ae.isCancelled() || ae.getAbility() == null || ae.getSkill() == null) {
 			return;
