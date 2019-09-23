@@ -1,6 +1,7 @@
 package me.mrdaniel.adventuremmo.listeners;
 
 import com.flowpowered.math.vector.Vector3d;
+import com.flowpowered.math.vector.Vector3i;
 import com.google.common.collect.Maps;
 import me.mrdaniel.adventuremmo.AdventureMMO;
 import me.mrdaniel.adventuremmo.MMOObject;
@@ -18,10 +19,9 @@ import me.mrdaniel.adventuremmo.event.PlayerDamageEntityEvent;
 import me.mrdaniel.adventuremmo.io.Config;
 import me.mrdaniel.adventuremmo.io.items.ToolData;
 import me.mrdaniel.adventuremmo.utils.MathUtils;
-import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.manipulator.mutable.entity.DamageableData;
+import org.spongepowered.api.data.property.entity.EyeLocationProperty;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.particle.ParticleTypes;
@@ -32,7 +32,6 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
-import org.spongepowered.api.event.block.InteractBlockEvent;
 import org.spongepowered.api.event.cause.entity.damage.source.EntityDamageSource;
 import org.spongepowered.api.event.entity.DamageEntityEvent;
 import org.spongepowered.api.event.filter.IsCancelled;
@@ -43,6 +42,9 @@ import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.item.inventory.equipment.EquipmentTypes;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Tristate;
+import org.spongepowered.api.util.blockray.BlockRay;
+import org.spongepowered.api.util.blockray.BlockRayHit;
+import org.spongepowered.api.world.World;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -122,8 +124,16 @@ public class AbilitiesListener extends MMOObject {
 		}
 		ToolType tool = handdata.get().getType();
 
+		Vector3d eyePos = p.getProperty(EyeLocationProperty.class).get().getValue();
+		if (eyePos == null)
+			return;
+		Vector3i v3i = p.getPosition().toInt();
+		Optional<BlockRayHit<World>> opt = BlockRay.from(p).distanceLimit(4).end();
+		if(opt.isPresent())
+			v3i = opt.get().getBlockPosition();
+
 		AbilityEvent ae = new AbilityEvent(super.getMMO(), p, tool,
-				e.getInteractionPoint().isPresent() && p.getWorld().getBlock(e.getInteractionPoint().get().toInt()).getType() != BlockTypes.AIR);
+				opt.isPresent() && !p.getWorld().getBlock(v3i).getType().equals(BlockTypes.AIR));
 		super.getGame().getEventManager().post(ae);
 		if (ae.isCancelled() || ae.getAbility() == null || ae.getSkill() == null) {
 			return;
