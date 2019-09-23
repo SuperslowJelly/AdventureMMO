@@ -32,6 +32,7 @@ import org.spongepowered.api.world.World;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public class ItemUtils {
 
@@ -126,5 +127,17 @@ public class ItemUtils {
 		});
 		item.offer(Keys.ITEM_ENCHANTMENTS, enchants);
 		return item;
+	}
+
+	public static void doAxeDurabilityReduction(ItemStack stack, int reduceAmount) {
+		if(stack.get(Keys.ITEM_DURABILITY).isPresent()) {
+			if(stack.get(Keys.ITEM_ENCHANTMENTS).isPresent() && stack.get(Keys.ITEM_ENCHANTMENTS).get().stream().anyMatch(enchantment -> enchantment.getType().equals(EnchantmentTypes.UNBREAKING))) {
+				int enchLevel = stack.get(Keys.ITEM_ENCHANTMENTS).get().stream().filter(enchantment -> enchantment.getType().equals(EnchantmentTypes.UNBREAKING)).findFirst().get().getLevel();
+				for(int i=0;i<reduceAmount;i++)
+					if(new Random().nextFloat() > (60f + (40f / (enchLevel+1f)))/100f)
+						reduceAmount--;
+			}
+			stack.offer(Keys.ITEM_DURABILITY, stack.get(Keys.ITEM_DURABILITY).get() - reduceAmount);
+		}
 	}
 }

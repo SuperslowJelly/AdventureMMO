@@ -18,6 +18,7 @@ import me.mrdaniel.adventuremmo.event.LevelUpEvent;
 import me.mrdaniel.adventuremmo.event.PlayerDamageEntityEvent;
 import me.mrdaniel.adventuremmo.io.Config;
 import me.mrdaniel.adventuremmo.io.items.ToolData;
+import me.mrdaniel.adventuremmo.utils.ItemUtils;
 import me.mrdaniel.adventuremmo.utils.MathUtils;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.data.key.Keys;
@@ -101,10 +102,10 @@ public class AbilitiesListener extends MMOObject {
 				e.setBaseDamage(e.getBaseDamage() * 0.5);
 				if(e.getTargetEntity() instanceof ArmorEquipable) {
 					ArmorEquipable ae = (ArmorEquipable) e.getTargetEntity();
-					ae.getBoots().ifPresent(stack -> {if(stack.get(Keys.ITEM_DURABILITY).isPresent()) stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1)));});
-					ae.getLeggings().ifPresent(stack -> {if(stack.get(Keys.ITEM_DURABILITY).isPresent()) stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1)));});
-					ae.getChestplate().ifPresent(stack -> {if(stack.get(Keys.ITEM_DURABILITY).isPresent()) stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1)));});
-					ae.getHelmet().ifPresent(stack -> {if(stack.get(Keys.ITEM_DURABILITY).isPresent()) stack.offer(Keys.ITEM_DURABILITY, (int) (stack.get(Keys.ITEM_DURABILITY).get() - (e.getBaseDamage()/2-1)));});
+					ae.getBoots().ifPresent(stack -> ItemUtils.doAxeDurabilityReduction(stack, (int)(e.getBaseDamage() / 2 - 1)));
+					ae.getLeggings().ifPresent(stack -> ItemUtils.doAxeDurabilityReduction(stack, (int)(e.getBaseDamage() / 2 - 1)));
+					ae.getChestplate().ifPresent(stack -> ItemUtils.doAxeDurabilityReduction(stack, (int)(e.getBaseDamage() / 2 - 1)));
+					ae.getHelmet().ifPresent(stack -> ItemUtils.doAxeDurabilityReduction(stack, (int)(e.getBaseDamage() / 2 - 1)));
 				}
 			}
 		}
