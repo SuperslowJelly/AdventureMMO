@@ -60,7 +60,7 @@ public abstract class Ability implements CatalogType {
 		return !this.enabled;
 	}
 
-	public abstract Text getValueLine(final int level);
+	public abstract String getValueLine(final int level);
 
 	public void setValues(@Nonnull final ConfigurationNode node) {
 		this.initial = node.getNode("initial_value").getDouble(0.0);

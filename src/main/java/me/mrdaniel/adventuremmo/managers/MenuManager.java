@@ -69,28 +69,33 @@ public class MenuManager {
 	}
 
 	public void sendSkillInfo(@Nonnull final Player p, @Nonnull final SkillType skill) {
-		PlayerData pdata = this.scoreboards.getMMO().getPlayerDatabase().get(p.getUniqueId());
-		MMOData sdata = p.get(MMOData.class).orElse(new MMOData());
+		PlayerData pData = this.scoreboards.getMMO().getPlayerDatabase().get(p.getUniqueId());
+		MMOData sData = p.get(MMOData.class).orElse(new MMOData());
 
-		if (sdata.getScoreboard()) {
-			if (sdata.getScoreboardPermanent()) {
+		if (sData.getScoreboard()) {
+			if (sData.getScoreboardPermanent()) {
 				this.scoreboards.setRepeating(p, this.getTitle(skill.getName(), true),
-						data -> this.getSkillInfoLines(data, skill));
+					data -> this.getSkillInfoLines(data, skill));
 			} else {
-				this.scoreboards.setTemp(p, this.getTitle(skill.getName(), true), this.getSkillInfoLines(pdata, skill));
+				this.scoreboards.setTemp(p, this.getTitle(skill.getName(), true), this.getSkillInfoLines(pData, skill));
 			}
 		} else {
-			p.sendMessage(Text.EMPTY);
-			p.sendMessage(this.getTitle(skill.getName(), false));
-			p.sendMessage(Text.of(TextColors.GREEN, "Level: ", pdata.getLevel(skill)));
-			p.sendMessage(Text.of(TextColors.GREEN, "EXP: ", pdata.getExp(skill), " / ",
-					MathUtils.expTillNextLevel(pdata.getLevel(skill))));
+			String title = "&d&l" + skill.getName() + " &f&lInfo";
+			List<Text> contents = new ArrayList<>();
+			contents.add(Texts.of("&7- &fLevel&7: &d" + pData.getLevel(skill)));
+			contents.add(Texts.of("&7- &fEXP&7: &d" + pData.getExp(skill)));
+			contents.add(Text.EMPTY);
+			contents.add(Texts.of("&7- &dAbilities&7:"));
 			skill.getAbilities().forEach(ability -> {
-				p.sendMessage(Text.EMPTY);
-				p.sendMessage(this.getBoardTitle(ability.getName(), false));
-				p.sendMessage(ability.getValueLine(pdata.getLevel(skill)));
+				contents.add(Texts.of(" &7* &f" + ability.getName() + "&7:"));
+				contents.add(Texts.of("  &7• &f" + ability.getValueLine(pData.getLevel(skill))));
 			});
-			p.sendMessage(Text.EMPTY);
+			PaginationList.builder()
+				.title(Texts.of(title))
+				.padding(Texts.of("&8&m-"))
+				.contents(contents)
+				.build()
+				.sendTo(p);
 		}
 	}
 
@@ -172,7 +177,7 @@ public class MenuManager {
 		int i = 1;
 
 		for (Ability ability : skill.getAbilities()) {
-			lines.put(i++, ability.getValueLine(data.getLevel(skill)));
+			lines.put(i++, Texts.of(ability.getValueLine(data.getLevel(skill))));
 			lines.put(i++, this.getBoardTitle(ability.getName(), true));
 			lines.put(i++, this.getEmptyLine());
 		}

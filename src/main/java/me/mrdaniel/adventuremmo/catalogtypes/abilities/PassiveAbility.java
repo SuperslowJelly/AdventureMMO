@@ -1,5 +1,6 @@
 package me.mrdaniel.adventuremmo.catalogtypes.abilities;
 
+import me.mrdaniel.adventuremmo.utils.Texts;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
@@ -16,7 +17,7 @@ public class PassiveAbility extends Ability {
 	}
 
 	@Override
-	public Text getValueLine(int level) {
-		return Text.of(TextColors.YELLOW, "Chance: ", String.format("%.2f", super.getValue(level)), "%");
+	public String getValueLine(int level) {
+		return "Chance&7: &d" + String.format("%.2f", this.getValue(level)) + "%";
 	}
 }

@@ -1,5 +1,6 @@
 package me.mrdaniel.adventuremmo.catalogtypes.abilities;
 
+import me.mrdaniel.adventuremmo.utils.Texts;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
@@ -26,7 +27,7 @@ public class ActiveAbility extends Ability {
 	}
 
 	@Override
-	public Text getValueLine(final int level) {
-		return Text.of(TextColors.YELLOW, "Duration: ", String.format("%.2f", this.getValue(level)), "s");
+	public String getValueLine(final int level) {
+		return "Duration&7: &d" + String.format("%.2f", this.getValue(level)) + "s";
 	}
 }
