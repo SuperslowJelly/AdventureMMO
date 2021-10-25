@@ -45,26 +45,31 @@ public class MenuManager {
 	}
 
 	public void sendSkillList(@Nonnull final Player p) {
-		PlayerData pdata = this.scoreboards.getMMO().getPlayerDatabase().get(p.getUniqueId());
-		MMOData sdata = p.get(MMOData.class).orElse(new MMOData());
+		PlayerData pData = this.scoreboards.getMMO().getPlayerDatabase().get(p.getUniqueId());
+		MMOData sData = p.get(MMOData.class).orElse(new MMOData());
 
-		if (sdata.getScoreboard()) {
-			if (sdata.getScoreboardPermanent()) {
+		if (sData.getScoreboard()) {
+			if (sData.getScoreboardPermanent()) {
 				this.scoreboards.setRepeating(p, this.getTitle("Skills", true), this::getSkillListLines);
 			} else {
-				this.scoreboards.setTemp(p, this.getTitle("Skills", true), this.getSkillListLines(pdata));
+				this.scoreboards.setTemp(p, this.getTitle("Skills", true), this.getSkillListLines(pData));
 			}
 		} else {
-			p.sendMessage(Text.EMPTY);
-			p.sendMessage(this.getTitle("Skills", false));
-			p.sendMessage(Text.of(TextColors.AQUA, "Total", TextColors.GRAY, " - ", TextColors.GREEN, "Level ",
-					pdata.getLevels()));
-			SkillTypes.VALUES.forEach(skill -> p.sendMessage(Text.builder()
-					.append(Text.of(TextColors.AQUA, skill.getName(), TextColors.GRAY, " - ", TextColors.GREEN,
-							"Level ", pdata.getLevel(skill)))
-					.onHover(TextActions.showText(Text.of(TextColors.BLUE, "Click for more info.")))
-					.onClick(TextActions.runCommand("/mmoskill " + skill.getId())).build()));
-			p.sendMessage(Text.EMPTY);
+			String title = "&d&lSkills";
+			List<Text> contents = new ArrayList<>();
+			contents.add(Texts.of("&7- &fTotal&7: &d" + pData.getLevels()));
+			SkillTypes.VALUES.forEach(skill -> contents.add(Text.builder()
+					.append(Texts.of("&7- &f" + skill.getName() + "&7: &d" + pData.getLevel(skill)))
+					.onHover(TextActions.showText(Texts.of("&dClick here for more info!")))
+					.onClick(TextActions.runCommand("/skill " + skill.getId()))
+				.build()
+			));
+			PaginationList.builder()
+				.title(Texts.of(title))
+				.padding(Texts.of("&8&m-"))
+				.contents(contents)
+				.build()
+				.sendTo(p);
 		}
 	}
 
