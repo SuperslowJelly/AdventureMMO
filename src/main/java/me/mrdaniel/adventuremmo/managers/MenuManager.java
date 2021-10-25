@@ -10,7 +10,9 @@ import me.mrdaniel.adventuremmo.data.manipulators.MMOData;
 import me.mrdaniel.adventuremmo.io.playerdata.PlayerData;
 import me.mrdaniel.adventuremmo.utils.MathUtils;
 import me.mrdaniel.adventuremmo.utils.TextUtils;
+import me.mrdaniel.adventuremmo.utils.Texts;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.service.pagination.PaginationList;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
 import org.spongepowered.api.text.channel.MessageReceiver;
@@ -18,6 +20,8 @@ import org.spongepowered.api.text.format.TextColors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuManager {
 
@@ -91,23 +95,28 @@ public class MenuManager {
 	}
 
 	public void sendSkillTop(@Nonnull final Player p, @Nullable final SkillType type) {
-		MMOData sdata = p.get(MMOData.class).orElse(new MMOData());
-		String title = (type == null) ? "Total Top" : (type.getName() + " Top");
+		MMOData sData = p.get(MMOData.class).orElse(new MMOData());
 
-		if (sdata.getScoreboard()) {
-			if (sdata.getScoreboardPermanent()) {
+		if (sData.getScoreboard()) {
+			String title = (type == null) ? "&d&lTotal Top" : ("&d&l" + type.getName() + " Top");
+			if (sData.getScoreboardPermanent()) {
 				this.scoreboards.setRepeating(p, this.getTitle(title, true), data -> this.getSkillTopLines(type));
 			} else {
 				this.scoreboards.setTemp(p, this.getTitle(title, true), this.getSkillTopLines(type));
 			}
 		} else {
-			p.sendMessage(Text.EMPTY);
-			p.sendMessage(this.getTitle(title, false));
+			String title = (type == null) ? "&d&lMCMMO &7&l- &f&lAverage Top" : ("&d&lMCMMO &7&l- &f&l" + type.getName() + " Top");
+			List<Text> contents = new ArrayList<>();
 			this.scoreboards.getMMO().getTops().getTop(type)
-					.forEach((number, player) -> p
-							.sendMessage(Text.of(TextColors.RED, number, ": ", TextColors.AQUA, player.getFirst(),
-									TextColors.GRAY, " - ", TextColors.GREEN, "Level ", player.getSecond())));
-			p.sendMessage(Text.EMPTY);
+					.forEach((number, player) -> {
+						if (!player.getFirst().isEmpty()) contents.add(Texts.of("&7" + number + ". &d" + player.getFirst() + " &7- &fLevel &d" + player.getSecond()));
+					});
+			PaginationList.builder()
+				.title(Texts.of(title))
+				.padding(Texts.of("&8&m-"))
+				.contents(contents)
+				.build()
+				.sendTo(p);
 		}
 	}
 
@@ -179,7 +188,7 @@ public class MenuManager {
 		Multimap<Integer, Text> lines = ArrayListMultimap.create();
 
 		this.scoreboards.getMMO().getTops().getTop(type).forEach(
-				(number, player) -> lines.put(player.getSecond(), Text.of(TextColors.AQUA, player.getFirst())));
+				(number, player) -> lines.put(player.getSecond(), Text.of(TextColors.GRAY, player.getFirst())));
 
 		return lines;
 	}

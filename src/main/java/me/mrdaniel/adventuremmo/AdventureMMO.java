@@ -58,7 +58,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Plugin(id = "adventuremmo", name = "AdventureMMO", version = "2.1.2", description = "A lightweight plugin that adds skills with all sorts of fun game mechanics to your server.", authors = {
-		"Daniel12321", "rojo8399", "The_Fireplace" })
+		"Daniel12321", "rojo8399", "The_Fireplace", "JELLY" })
 public class AdventureMMO {
 
 	private final Game game;
