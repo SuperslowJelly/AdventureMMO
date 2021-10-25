@@ -26,7 +26,7 @@ public class MMOData extends AbstractData<MMOData, ImmutableMMOData> {
 	private boolean scoreboard_permanent;
 
 	public MMOData() {
-		this(Maps.newHashMap(), Maps.newHashMap(), true, true, false);
+		this(Maps.newHashMap(), Maps.newHashMap(), false, false, false);
 	}
 
 	public MMOData(@Nonnull final Map<String, Long> delays, @Nonnull final Map<String, Long> abilities,
