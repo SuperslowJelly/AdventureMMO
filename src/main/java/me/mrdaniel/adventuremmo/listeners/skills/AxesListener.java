@@ -45,10 +45,11 @@ public class AxesListener extends ActiveAbilityListener {
 							.ifPresent(item -> ItemUtils.drop(target.getLocation(), item.createSnapshot()));
 				}
 			} else if (e.getPlayer().get(MMOData.class).orElse(new MMOData()).isAbilityActive(super.ability.getId())) {
-				final Vector3d pos = target.getLocation().getPosition();
-				target.getNearbyEntities(
-						ent -> ent.getLocation().getPosition().distance(pos) < 2.0 && !ent.equals(e.getPlayer()))
+				try {
+					target.getNearbyEntities(
+							ent -> ent.getLocation().getPosition().distance(target.getLocation().getPosition()) < 2.0 && !ent.equals(e.getPlayer()))
 						.forEach(ent -> ent.damage(e.getDamage(), DamageSource.builder().type(DamageTypes.CUSTOM).build()));
+				} catch (StackOverflowError ignored) {}
 			}
 		}
 	}

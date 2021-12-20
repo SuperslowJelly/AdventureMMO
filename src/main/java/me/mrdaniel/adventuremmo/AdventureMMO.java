@@ -194,6 +194,10 @@ public class AdventureMMO {
 						.permission("mmo.admin.clearitem").executor(new CommandItemClear(this)).build(), "clearitem")
 				.child(CommandSpec.builder().description(Text.of(TextColors.BLUE, "AdventureMMO | ClearBlock Command"))
 						.permission("mmo.admin.clearblock").executor(new CommandBlockClear(this)).build(), "clearblock")
+				.child(CommandSpec.builder().description(Text.of(TextColors.BLUE, "AdventureMMO | SetMultiplier Command"))
+					.permission("mmo.admin.setmultiplier")
+					.arguments(GenericArguments.user(Text.of("user")))
+					.executor(new CommandSetMultiplier(this)).build(), "setmultiplier")
 				.build(), "mmoadmin");
 
 		// Registering Listeners
